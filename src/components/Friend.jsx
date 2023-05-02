@@ -21,9 +21,11 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const isFriend = friends.find((friend) => friend._id === friendId);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
+
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
+      `${backendUrl}/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {

@@ -14,8 +14,10 @@ const ProfilePage = () => {
   const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
+
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`${backendUrl}/users/${userId}`, {
       method: "GET",
       headers: {Authorization: `Bearer ${token}`,}
     })
