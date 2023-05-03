@@ -38,15 +38,16 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     dispatch(setFriends({ friends: data }));
   };
 
-  const goToProfile = () => {
-    navigate(`/profile/${friendId}`, { replace: true });
-  };
-
   return (
     <FlexBetween>
       <FlexBetween gap="1rem">
         <UserImage image={userPicturePath} size="55px" />
-        <Box onClick={goToProfile}>
+        <Box
+          onClick={() => {
+            navigate(`/profile/${friendId}`);
+            navigate(0);
+          }}
+        >
           <Typography
             color={main}
             variant="h5"
