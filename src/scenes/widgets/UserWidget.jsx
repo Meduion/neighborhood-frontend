@@ -13,9 +13,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserWidget = ({ userId, picturePath}) => {
-  console.log("userId:", userId);
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const { palette } = useTheme();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
@@ -25,26 +23,22 @@ const UserWidget = ({ userId, picturePath}) => {
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
 
-  const handleUserClick = () => {
-    navigate(`/profile/${userId}`);
+  const getUser = async () => {
+    const response = await fetch(`${backendUrl}/users/${userId}`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    const data = await response.json();
+    setUser(data);
   };
 
   useEffect(() => {
-    const getUser = async () => {
-      const response = await fetch(`${backendUrl}/users/${userId}`,
-        {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const data = await response.json();
-      setUser(data);
-      setIsLoading(false);
-    };
     getUser();
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (isLoading || !user) {
+  if (!user) {
     return null;
   }
 
@@ -64,7 +58,7 @@ const UserWidget = ({ userId, picturePath}) => {
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
-        onClick={handleUserClick}
+        onClick={() => {console.log("userId:", userId); navigate(`/profile/${userId}`)}}
       >
         <FlexBetween gap="1rem">
           <UserImage image={picturePath} />
