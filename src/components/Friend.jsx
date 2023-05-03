@@ -1,6 +1,5 @@
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
@@ -13,7 +12,6 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
-  const [isLoading, setisLoading] = useState(true);
 
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
@@ -38,23 +36,17 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     );
     const data = await response.json();
     dispatch(setFriends({ friends: data }));
-    setisLoading(false);
-    console.log(isLoading);
+  };
+
+  const goToProfile = () => {
+    navigate(`/profile/${friendId}`, { replace: true });
   };
 
   return (
     <FlexBetween>
       <FlexBetween gap="1rem">
         <UserImage image={userPicturePath} size="55px" />
-        <Box
-          onClick={() => {
-            console.log(isLoading);
-            if (!isLoading) { // Only navigate to profile page if loading state is false
-              navigate(`/profile/${friendId}`);
-              navigate(0);
-            }
-          }}
-        >
+        <Box onClick={goToProfile}>
           <Typography
             color={main}
             variant="h5"
