@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserWidget = ({ userId, picturePath}) => {
+  console.log("userId:", userId);
   const [user, setUser] = useState(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const UserWidget = ({ userId, picturePath}) => {
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
-        onClick={() => navigate(`/profile/${userId}`)}
+        onClick={() => {console.log("userId:", userId); navigate(`/profile/${userId}`)}}
       >
         <FlexBetween gap="1rem">
           <UserImage image={picturePath} />
