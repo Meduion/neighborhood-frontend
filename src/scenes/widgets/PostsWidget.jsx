@@ -40,7 +40,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <>
+    <div style={{display: "flex", flexDirection: "column-reverse"}}>
       {posts.map(
         ({
           _id,
@@ -68,7 +68,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           />
         )
       )}
-    </>
+    </div>
   );
 };
 
