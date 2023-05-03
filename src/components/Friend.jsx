@@ -39,6 +39,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     const data = await response.json();
     dispatch(setFriends({ friends: data }));
     setisLoading(false);
+    console.log(isLoading);
   };
 
   return (
@@ -47,6 +48,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         <UserImage image={userPicturePath} size="55px" />
         <Box
           onClick={() => {
+            console.log(isLoading);
             if (!isLoading) { // Only navigate to profile page if loading state is false
               navigate(`/profile/${friendId}`);
               navigate(0);
